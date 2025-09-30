@@ -1,0 +1,47 @@
+<%- include('./partials/header.ejs') %>
+
+<section>
+  <div class="container">
+    <div class="content">
+      <img
+        class="img-book"
+        src="<%= book.cover_url %>"
+        alt="<%= book.title %>"
+      />
+      <div class="box-book">
+        <h3>Title</h3>
+        <p><%= book.title %></p>
+        <h3>Author</h3>
+        <p><%= book.author %></p>
+        <h3>Rating</h3>
+        <input type="hidden" id="rating" name="rating" value="0" />
+        <% for(let i = 1; i<=5; i++){ %>
+        <i
+          class="fa-star <%= i <= book.rating ? 'fa-solid fa-xl' : 'fa-regular fa-xl' %>"
+          style="color: #c25b01"
+        ></i>
+
+        <% } %>
+        <h3>Date</h3>
+        <p>
+          <%= book.date_of_completion ?
+          book.date_of_completion.toLocaleDateString("it-IT") : "" %>
+        </p>
+      </div>
+    </div>
+    <form action="/back" method="post" class="form-button">
+      <button type="submit" formaction="/back" class="back-btn">Go Back</button>
+    </form>
+    <form
+      action="/delete"
+      method="post"
+      onsubmit="return confirm('sei sicuro di voler eliminare questo libro?');"
+      style="display: inline"
+    >
+      <input type="hidden" name="id" value="<%= book.id %>" />
+      <button type="submit" class="delete-btn">Elimina</button>
+    </form>
+  </div>
+</section>
+
+<%- include('./partials/footer.ejs') %>

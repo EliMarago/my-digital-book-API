@@ -1,0 +1,48 @@
+<%- include('partials/header.ejs'); -%>
+
+<div>
+  <nav>
+    <div class="title">
+      <i class="fa-solid fa-book-open-reader icon"></i>
+      <h2>My Book</h2>
+    </div>
+    <form action="/add" method="get">
+      <button class="add-btn">
+        <i class="fa-solid fa-square-plus"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+
+<div class="box">
+  <% book.forEach(books => {%>
+  <div class="box-1">
+    <form action="/book" method="post">
+      <input type="hidden" name="id" value="<%= books.id %>" />
+      <button type="submit" style="border: none; background: none">
+        <img src="<%= books.cover_url %>" alt="<%= books.title %>" />
+      </button>
+    </form>
+
+    <div class="box-info">
+      <h3><%= books.title %></h3>
+      <p><%= books.author %></p>
+      <div class="rating">
+        <% for(let i = 1; i <= 5; i++) { %>
+        <i
+          class="fa-star <%= i <= books.rating ? 'fa-solid' : 'fa-regular' %>"
+          style="color: #ed7004"
+        ></i>
+
+        <% } %>
+      </div>
+      <p>
+        <%= books.date_of_completion ?
+        books.date_of_completion.toLocaleDateString("it-IT") : "" %>
+      </p>
+    </div>
+  </div>
+  <% }); %>
+</div>
+
+<%- include('partials/footer.ejs'); -%>
